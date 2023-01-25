@@ -54,6 +54,13 @@ export function CyclesContextProvider({
       })
     )
 
+    const finished = new Audio(
+      'https://github.com/maykbrito/automatic-video-creator/blob/master/audios/kichen-timer.mp3?raw=true'
+    )
+
+    finished.play()
+    finished.volume = 0.3
+
     setActiveCycleId(null)
   }
 
