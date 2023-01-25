@@ -49,6 +49,10 @@ export function Home() {
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     createNewCycle(data)
+  }
+
+  function handleInterruptCurrentCycle() {
+    interruptCurrentCycle()
     reset()
   }
 
@@ -61,10 +65,14 @@ export function Home() {
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>
+
         <Countdown />
 
         {activeCycle ? (
-          <StopCountdownButton type="submit" onClick={interruptCurrentCycle}>
+          <StopCountdownButton
+            type="submit"
+            onClick={handleInterruptCurrentCycle}
+          >
             <HandPalm size={24} />
             Interromper
           </StopCountdownButton>

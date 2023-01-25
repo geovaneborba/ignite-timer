@@ -5,6 +5,11 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
 
+  /* Mobile Screens */
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
+
   nav {
     display: flex;
     gap: 0.5rem;

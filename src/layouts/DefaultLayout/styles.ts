@@ -9,4 +9,13 @@ export const LayoutContainer = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+
+  /* Mobile Screens */
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+  }
 `

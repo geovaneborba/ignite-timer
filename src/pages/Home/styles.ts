@@ -7,11 +7,22 @@ export const HomeContainer = styled.main`
   align-items: center;
   justify-content: center;
 
+  @media (max-width: 600px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3.5rem;
+
+    /* Mobile Screens */
+    @media (max-width: 600px) {
+      width: 100%;
+      padding: 1rem;
+    }
   }
 `
 

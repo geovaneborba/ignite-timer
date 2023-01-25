@@ -28,6 +28,7 @@ export function Countdown() {
 
     if (activeCycle) {
       timer = setInterval(() => {
+        //Diferença entre a data de agora e de quando foi criado o cyclo em segundos
         const secondsDifference = differenceInSeconds(
           new Date(),
           activeCycle.startDate
@@ -55,9 +56,9 @@ export function Countdown() {
   ])
 
   useEffect(() => {
-    if (activeCycle) {
-      document.title = `${minutes}:${seconds} Ignite Timer`
-    }
+    activeCycle
+      ? (document.title = `${minutes}:${seconds} Ignite Timer`)
+      : (document.title = `Ignite Timer`)
   }, [activeCycle, minutes, seconds])
 
   return (
