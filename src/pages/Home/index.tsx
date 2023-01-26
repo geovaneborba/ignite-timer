@@ -38,6 +38,7 @@ export function Home() {
     useContext(CyclesContext)
 
   const newCycleForm = useForm<NewCycleFormData>({
+    mode: 'onSubmit',
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
       task: '',
@@ -56,8 +57,8 @@ export function Home() {
     reset()
   }
 
-  const task = watch('task')
-  const isSubmitDisabled = !task
+  const taskFieldValue = watch('task')
+  const isSubmitDisabled = !taskFieldValue
 
   return (
     <HomeContainer>

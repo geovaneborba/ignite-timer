@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const FormContainer = styled.div`
   width: 100%;
@@ -37,7 +37,9 @@ export const FormContainer = styled.div`
   }
 `
 
-export const InputContainer = styled.div``
+interface InputProps {
+  isErrored?: boolean
+}
 
 const BaseInput = styled.input`
   background: transparent;
@@ -68,8 +70,15 @@ const BaseInput = styled.input`
   }
 `
 
-export const TaskInput = styled(BaseInput)`
+export const TaskInput = styled(BaseInput)<InputProps>`
   flex: 1;
+
+  ${(props) =>
+    props.isErrored
+      ? css`
+          border-bottom: 2px solid ${(props) => props.theme['red-500']};
+        `
+      : ''}
 
   &::-webkit-calendar-picker-indicator {
     display: none !important;
@@ -80,9 +89,16 @@ export const TaskInput = styled(BaseInput)`
   }
 `
 
-export const MinutesAmountInput = styled(BaseInput)`
+export const MinutesAmountInput = styled(BaseInput)<InputProps>`
   text-align: center;
   width: 4rem;
+
+  ${(props) =>
+    props.isErrored
+      ? css`
+          border-bottom: 2px solid ${(props) => props.theme['red-500']};
+        `
+      : ''}
 
   /* Mobile Screens */
   @media (max-width: 600px) {

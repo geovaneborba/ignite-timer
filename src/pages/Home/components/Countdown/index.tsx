@@ -1,5 +1,8 @@
-import { differenceInSeconds } from 'date-fns'
 import { useEffect, useContext } from 'react'
+import { differenceInSeconds } from 'date-fns'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
+
 import { CyclesContext } from '../../../../contexts/CyclesContext'
 import { CountdownContainer, Separator } from './styles'
 
@@ -23,6 +26,25 @@ export function Countdown() {
   const minutes = String(minutesAmount).padStart(2, '0')
   const seconds = String(secondsAmount).padStart(2, '0')
 
+  function playFinishedAudio() {
+    const finished = new Audio(
+      'https://github.com/maykbrito/automatic-video-creator/blob/master/audios/kichen-timer.mp3?raw=true'
+    )
+
+    finished.play()
+    finished.volume = 0.3
+  }
+
+  function showSuccessToast() {
+    return toast.success('Ciclo concluído com sucesso!', {
+      position: 'top-right',
+      theme: 'colored',
+      draggable: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+    })
+  }
+
   useEffect(() => {
     let timer: number
 
@@ -38,6 +60,8 @@ export function Countdown() {
           markCurrentCycleAsFinished()
           setSecondsPassed(totalSeconds)
           clearInterval(timer)
+          playFinishedAudio()
+          showSuccessToast()
         } else {
           setSecondsPassed(secondsDifference)
         }
@@ -62,12 +86,15 @@ export function Countdown() {
   }, [activeCycle, minutes, seconds])
 
   return (
-    <CountdownContainer>
-      <span>{minutes[0]}</span>
-      <span>{minutes[1]}</span>
-      <Separator>:</Separator>
-      <span>{seconds[0]}</span>
-      <span>{seconds[1]}</span>
-    </CountdownContainer>
+    <>
+      <CountdownContainer>
+        <span>{minutes[0]}</span>
+        <span>{minutes[1]}</span>
+        <Separator>:</Separator>
+        <span>{seconds[0]}</span>
+        <span>{seconds[1]}</span>
+      </CountdownContainer>
+      <ToastContainer />
+    </>
   )
 }
