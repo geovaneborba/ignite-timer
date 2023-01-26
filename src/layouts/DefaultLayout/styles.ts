@@ -16,6 +16,7 @@ export const LayoutContainer = styled.div`
     padding: 0;
     margin: 0;
     border-radius: 0;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
   }
 `

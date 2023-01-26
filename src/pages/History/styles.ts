@@ -6,6 +6,10 @@ export const HistoryContainer = styled.main`
   display: flex;
   flex-direction: column;
 
+  @media (max-width: 600px) {
+    padding: 2rem 1rem 0;
+  }
+
   h1 {
     font-size: 1.5rem;
     color: ${(props) => props.theme['gray-100']};
@@ -13,8 +17,26 @@ export const HistoryContainer = styled.main`
 `
 export const HistoryList = styled.div`
   flex: 1;
-  overflow: auto;
   margin-top: 2rem;
+
+  @media (max-width: 600px) {
+    overflow: auto;
+    flex: unset;
+
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: ${(props) => props.theme['gray-100']};
+      border-radius: 100px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: ${(props) => props.theme['green-500']};
+      border-radius: 100px;
+    }
+  }
 
   table {
     width: 100%;
@@ -44,10 +66,15 @@ export const HistoryList = styled.div`
       border-top: 4px solid ${(props) => props.theme['gray-800']};
       padding: 1rem;
       font-size: 0.875rem;
+      height: 3.375rem;
 
       &:first-child {
         width: 50%;
         padding-left: 1.5rem;
+
+        @media (max-width: 600px) {
+          width: unset;
+        }
       }
       &:last-child {
         border-bottom-right-radius: 8px;
