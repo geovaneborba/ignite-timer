@@ -68,6 +68,10 @@ const BaseInput = styled.input`
     box-shadow: none;
     border-color: ${(props) => props.theme['green-500']};
   }
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px ${(props) => props.theme['gray-800']} inset !important;
+    -webkit-text-fill-color: white !important;
+  }
 `
 
 export const TaskInput = styled(BaseInput)<InputProps>`
