@@ -53,7 +53,7 @@ export function Countdown() {
         //Diferença entre a data de agora e de quando foi criado o cyclo em segundos
         const secondsDifference = differenceInSeconds(
           new Date(),
-          activeCycle.startDate
+          new Date(activeCycle.startDate)
         )
 
         if (secondsDifference >= totalSeconds) {
