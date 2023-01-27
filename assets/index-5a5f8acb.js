@@ -316,6 +316,10 @@ Error generating stack: `+o.message+`
     box-shadow: none;
     border-color: ${e=>e.theme["green-500"]};
   }
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px ${e=>e.theme["gray-800"]} inset !important;
+    -webkit-text-fill-color: white !important;
+  }
 `,Sk=dt(Km)`
   flex: 1;
 
