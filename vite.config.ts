@@ -5,5 +5,4 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: 'https://geovaneborba.github.io/rocketseat-ignite-timer/',
 })
