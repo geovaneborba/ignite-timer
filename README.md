@@ -1,9 +1,9 @@
 <img src="./assets/ignite-timer.png" alt="Imagem do banner ignite timer" />
 
 <p align="center">
-  <img alt="Repo size"  src="https://img.shields.io/github/repo-size/geovaneborba/rocketseat-ignite-timer?color=4f46e5&style=for-the-badge">
-  <img alt="GitHub top language"  src="https://img.shields.io/github/languages/top/geovaneborba/rocketseat-ignite-timer?color=4f46e5&style=for-the-badge"> <img alt="GitHub language count"  src="https://img.shields.io/github/languages/count/geovaneborba/rocketseat-ignite-timer?color=4f46e5&style=for-the-badge">
-  <img alt="Licença" src="https://img.shields.io/github/license/geovaneborba/rocketseat-ignite-timer?color=4f46e5&style=for-the-badge">
+  <img alt="Repo size"  src="https://img.shields.io/github/repo-size/geovaneborba/ignite-timer?color=4f46e5&style=for-the-badge">
+  <img alt="GitHub top language"  src="https://img.shields.io/github/languages/top/geovaneborba/ignite-timer?color=4f46e5&style=for-the-badge"> <img alt="GitHub language count"  src="https://img.shields.io/github/languages/count/geovaneborba/ignite-timer?color=4f46e5&style=for-the-badge">
+  <img alt="Licença" src="https://img.shields.io/github/license/geovaneborba/ignite-timer?color=4f46e5&style=for-the-badge">
 </p>
 
 <p align="center">
@@ -62,10 +62,10 @@ Antes de começar, você precisa ter o [Git](https://git-scm.com) e o [Node](htt
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/geovaneborba/rocketseat-ignite-timer.git
+$ git clone https://github.com/geovaneborba/ignite-timer.git
 
 # Entre na pasta
-$ cd rocketseat-ignite-timer
+$ cd ignite-timer
 
 # Instale as dependências
 $ npm install
