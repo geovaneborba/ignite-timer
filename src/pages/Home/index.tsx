@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { HandPalm, Play } from 'phosphor-react'
+import { HandPalm, Play, Pause } from 'phosphor-react'
 
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
@@ -13,6 +13,8 @@ import {
   HomeContainer,
   StartCountdownButton,
   StopCountdownButton,
+  PauseCountdownButton,
+  ButtonsContainer,
 } from './styles'
 
 const newCycleFormValidationSchema = zod.object({
@@ -23,19 +25,17 @@ const newCycleFormValidationSchema = zod.object({
     .max(60, 'O ciclo precisa ser no máximo de 60 minutos.'),
 })
 
-/**
- * Neste exemplo,
- * a função zod.infer<>() é usada para inferir os tipos do objeto
- * newCycleFormValidationSchema no objeto NewCycleFormData
- * que são eles:
- * task: string
- * minutesAmount: number;
- */
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
 export function Home() {
-  const { createNewCycle, interruptCurrentCycle, activeCycle } =
-    useContext(CyclesContext)
+  const {
+    createNewCycle,
+    interruptCurrentCycle,
+    pauseCurrentCycle,
+    resumeCurrentCycle,
+    activeCycle,
+    isPaused,
+  } = useContext(CyclesContext)
 
   const newCycleForm = useForm<NewCycleFormData>({
     mode: 'onSubmit',
@@ -57,6 +57,14 @@ export function Home() {
     reset()
   }
 
+  function handlePauseCurrentCycle() {
+    if (isPaused) {
+      resumeCurrentCycle()
+    } else {
+      pauseCurrentCycle()
+    }
+  }
+
   const taskFieldValue = watch('task')
   const isSubmitDisabled = !taskFieldValue
 
@@ -70,13 +78,32 @@ export function Home() {
         <Countdown />
 
         {activeCycle ? (
-          <StopCountdownButton
-            type="submit"
-            onClick={handleInterruptCurrentCycle}
-          >
-            <HandPalm size={24} />
-            Interromper
-          </StopCountdownButton>
+          <ButtonsContainer>
+            <PauseCountdownButton
+              type="button"
+              onClick={handlePauseCurrentCycle}
+            >
+              {isPaused ? (
+                <>
+                  <Play size={24} />
+                  Retomar
+                </>
+              ) : (
+                <>
+                  <Pause size={24} />
+                  Pausar
+                </>
+              )}
+            </PauseCountdownButton>
+
+            <StopCountdownButton
+              type="button"
+              onClick={handleInterruptCurrentCycle}
+            >
+              <HandPalm size={24} />
+              Interromper
+            </StopCountdownButton>
+          </ButtonsContainer>
         ) : (
           <StartCountdownButton type="submit" disabled={isSubmitDisabled}>
             <Play size={24} />

@@ -13,6 +13,7 @@ export function Countdown() {
     markCurrentCycleAsFinished,
     amountSecondsPassed,
     setSecondsPassed,
+    isPaused,
   } = useContext(CyclesContext)
 
   // Conversão de minutos para segundos
@@ -48,13 +49,15 @@ export function Countdown() {
   useEffect(() => {
     let timer: number
 
-    if (activeCycle) {
+    if (activeCycle && !isPaused) {
       timer = setInterval(() => {
-        //Diferença entre a data de agora e de quando foi criado o cyclo em segundos
-        const secondsDifference = differenceInSeconds(
-          new Date(),
-          new Date(activeCycle.startDate)
-        )
+        const totalPausedTime = activeCycle.totalPausedTime || 0
+
+        // Diferença entre a data de agora e de quando foi criado o ciclo em segundos
+        // Subtraindo o tempo total que ficou pausado
+        const secondsDifference =
+          differenceInSeconds(new Date(), new Date(activeCycle.startDate)) -
+          totalPausedTime
 
         if (secondsDifference >= totalSeconds) {
           markCurrentCycleAsFinished()
@@ -74,6 +77,7 @@ export function Countdown() {
   }, [
     activeCycle,
     activeCycleId,
+    isPaused,
     markCurrentCycleAsFinished,
     setSecondsPassed,
     totalSeconds,
@@ -81,9 +85,11 @@ export function Countdown() {
 
   useEffect(() => {
     activeCycle
-      ? (document.title = `${minutes}:${seconds} Ignite Timer`)
+      ? (document.title = `${minutes}:${seconds} ${
+          isPaused ? '⏸ ' : ''
+        }Ignite Timer`)
       : (document.title = `Ignite Timer`)
-  }, [activeCycle, minutes, seconds])
+  }, [activeCycle, minutes, seconds, isPaused])
 
   return (
     <>
