@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
@@ -7,7 +6,7 @@ import { HandPalm, Play, Pause } from 'phosphor-react'
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
 
-import { CyclesContext } from '../../contexts/CyclesContext'
+import { useCycles } from '../../contexts/CyclesContext'
 
 import {
   HomeContainer,
@@ -35,7 +34,7 @@ export function Home() {
     resumeCurrentCycle,
     activeCycle,
     isPaused,
-  } = useContext(CyclesContext)
+  } = useCycles()
 
   const newCycleForm = useForm<NewCycleFormData>({
     mode: 'onSubmit',
@@ -82,6 +81,7 @@ export function Home() {
             <PauseCountdownButton
               type="button"
               onClick={handlePauseCurrentCycle}
+              isPaused={isPaused}
             >
               {isPaused ? (
                 <>

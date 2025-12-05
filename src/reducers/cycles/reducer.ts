@@ -44,11 +44,18 @@ export function cyclesReducer(state: CycleState, action: Action): CycleState {
 
       return {
         ...state,
-        cycles: state.cycles.map((cycle, index) =>
-          index === currentCycleIndex
-            ? { ...cycle, interruptedDate: new Date() }
-            : cycle
-        ),
+        cycles: state.cycles.map((cycle, index) => {
+          const isCurrentCycle = index === currentCycleIndex
+
+          if (!isCurrentCycle) {
+            return cycle
+          }
+
+          return {
+            ...cycle,
+            interruptedDate: new Date(),
+          }
+        }),
         activeCycleId: null,
         isPaused: false,
       }
@@ -65,11 +72,18 @@ export function cyclesReducer(state: CycleState, action: Action): CycleState {
 
       return {
         ...state,
-        cycles: state.cycles.map((cycle, index) =>
-          index === currentCycleIndex
-            ? { ...cycle, finishedDate: new Date() }
-            : cycle
-        ),
+        cycles: state.cycles.map((cycle, index) => {
+          const isCurrentCycle = index === currentCycleIndex
+
+          if (!isCurrentCycle) {
+            return cycle
+          }
+
+          return {
+            ...cycle,
+            finishedDate: new Date(),
+          }
+        }),
         activeCycleId: null,
         isPaused: false,
       }
@@ -86,11 +100,18 @@ export function cyclesReducer(state: CycleState, action: Action): CycleState {
 
       return {
         ...state,
-        cycles: state.cycles.map((cycle, index) =>
-          index === currentCycleIndex
-            ? { ...cycle, pausedDate: new Date() }
-            : cycle
-        ),
+        cycles: state.cycles.map((cycle, index) => {
+          const isCurrentCycle = index === currentCycleIndex
+
+          if (!isCurrentCycle) {
+            return cycle
+          }
+
+          return {
+            ...cycle,
+            pausedDate: new Date(),
+          }
+        }),
         isPaused: true,
       }
     }
@@ -106,27 +127,34 @@ export function cyclesReducer(state: CycleState, action: Action): CycleState {
 
       const currentCycle = state.cycles[currentCycleIndex]
 
-      // Calcula o tempo pausado
-      const pausedTime = currentCycle.pausedDate
-        ? Math.floor(
-            (new Date().getTime() -
-              new Date(currentCycle.pausedDate).getTime()) /
-              1000
-          )
-        : 0
+      const pausedTime = () => {
+        if (!currentCycle.pausedDate) {
+          return 0
+        }
+
+        const currentTime = Date.now()
+        const pauseStartTime = new Date(currentCycle.pausedDate).getTime()
+        const pausedDurationMs = currentTime - pauseStartTime
+
+        return Math.floor(pausedDurationMs / 1000)
+      }
 
       return {
         ...state,
-        cycles: state.cycles.map((cycle, index) =>
-          index === currentCycleIndex
-            ? {
-                ...cycle,
-                resumedDate: new Date(),
-                totalPausedTime: cycle.totalPausedTime + pausedTime,
-                pausedDate: undefined,
-              }
-            : cycle
-        ),
+        cycles: state.cycles.map((cycle, index) => {
+          const isCurrentCycle = index === currentCycleIndex
+
+          if (!isCurrentCycle) {
+            return cycle
+          }
+
+          return {
+            ...cycle,
+            resumedDate: new Date(),
+            totalPausedTime: cycle.totalPausedTime + pausedTime(),
+            pausedDate: undefined,
+          }
+        }),
         isPaused: false,
       }
     }

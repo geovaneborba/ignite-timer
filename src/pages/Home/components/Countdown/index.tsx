@@ -1,9 +1,9 @@
-import { useEffect, useContext } from 'react'
+import { useEffect } from 'react'
 import { differenceInSeconds } from 'date-fns'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-import { CyclesContext } from '../../../../contexts/CyclesContext'
+import { useCycles } from '../../../../contexts/CyclesContext'
 import { CountdownContainer, Separator } from './styles'
 
 export function Countdown() {
@@ -14,7 +14,7 @@ export function Countdown() {
     amountSecondsPassed,
     setSecondsPassed,
     isPaused,
-  } = useContext(CyclesContext)
+  } = useCycles()
 
   // Conversão de minutos para segundos
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0

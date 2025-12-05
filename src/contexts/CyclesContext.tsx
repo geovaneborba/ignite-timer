@@ -2,6 +2,7 @@ import { differenceInSeconds } from 'date-fns'
 import {
   createContext,
   ReactNode,
+  useContext,
   useEffect,
   useReducer,
   useState,
@@ -137,4 +138,14 @@ export function CyclesContextProvider({
       {children}
     </CyclesContext.Provider>
   )
+}
+
+export function useCycles() {
+  const context = useContext(CyclesContext)
+
+  if (!context) {
+    throw new Error('useCycles must be used within a CyclesContextProvider')
+  }
+
+  return context
 }
